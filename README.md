@@ -6,7 +6,7 @@ insta clone backend
 [v] createAccount
 [v] seeProfile
 [v] login
-
+[v] editProfile
 
 
 
