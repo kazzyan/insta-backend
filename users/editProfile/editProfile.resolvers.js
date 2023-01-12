@@ -1,11 +1,11 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+
 import prisma from "../../prisma";
+import { protectedResolver } from "../users.util";
 
 export default {
     Mutation: {
-        editProfile: async (_, { username, email, name, password: newPassword }, { Auth }) => {
-            const { id } = jwt.verify(Auth, process.env.PRIVATE_KEY);
+        editProfile: protectedResolver(async (_, { username, email, name, password: newPassword, bio }, { thisUser }) => {
             
             let uglyPassword = null;
 
@@ -15,13 +15,14 @@ export default {
 
             const updateUser = await prisma.user.update({
                 where: {
-                    id
+                    id: thisUser.id
                 },
                 data: {
                     username,
                     email,
                     name,
-                    ...(uglyPassword && { password: uglyPassword })
+                    ...(uglyPassword && { password: uglyPassword }),
+                    bio,
                 }
             })
 
@@ -36,7 +37,7 @@ export default {
                     error: "could not profile update"
                 }
             }              
-        }
+        })
     }
 }
 
