@@ -4,8 +4,8 @@ import prisma from "../../prisma";
 
 export default {
     Mutation: {
-        editProfile: async (_, { username, email, name, password: newPassword, token }) => {
-            const { id } = jwt.verify(token, process.env.PRIVATE_KEY);
+        editProfile: async (_, { username, email, name, password: newPassword }, { Auth }) => {
+            const { id } = jwt.verify(Auth, process.env.PRIVATE_KEY);
             
             let uglyPassword = null;
 
