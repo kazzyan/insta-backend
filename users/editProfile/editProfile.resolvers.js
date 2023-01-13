@@ -6,18 +6,25 @@ import { protectedResolver } from "../users.util";
 
 export default {
     Mutation: {
-        editProfile: protectedResolver(async (_, { username, email, name, password: newPassword, bio, avatar }, { thisUser }) => {
-
-            const { filename, createReadStream } = await avatar;
-            const readStream = createReadStream();
-
-            const writeStream = createWriteStream(process.cwd() + "/uploads/" + filename); 
-            readStream.pipe(writeStream);
+        editProfile: protectedResolver(async (_, { username, email, name, password: newPassword, bio, avatarURL }, { thisUser }) => {
 
             let uglyPassword = null;
 
             if (newPassword) {
                 uglyPassword = await bcrypt.hash(newPassword, 10);
+            }
+
+            let newAvatarUrl = null;
+
+            if (avatarURL) {
+                const { filename, createReadStream } = await avatarURL;
+                const uploadFilename = `${thisUser.id}_${Date.now()}_${filename}`;
+
+                const readStream = createReadStream();
+                const writeStream = createWriteStream(process.cwd() + "/uploads/" + uploadFilename); 
+                readStream.pipe(writeStream);
+                
+                newAvatarUrl = `http://localhost:4000/img/${uploadFilename}`;
             }
 
             const updateUser = await prisma.user.update({
@@ -30,6 +37,7 @@ export default {
                     name,
                     ...(uglyPassword && { password: uglyPassword }),
                     bio,
+                    ...(newAvatarUrl && { avatarURL: newAvatarUrl })
                 }
             })
 
