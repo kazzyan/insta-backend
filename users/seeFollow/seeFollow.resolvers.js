@@ -3,12 +3,16 @@ import prisma from "../../prisma";
 export default {
     Query: {
         seeFollowers: async (_, { username, page }) => {
-            const aFollowers = await prisma.user.findUnique({
+            const bFollowers = await prisma.user.findMany({
                 where: {
-                    username
+                    following: {
+                        some : {
+                            username
+                        }
+                    }
                 }
-            }).followers();
-            console.log(aFollowers);
+            });
+            console.log(bFollowers);
         }
     }
 }
