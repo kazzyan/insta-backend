@@ -13,6 +13,7 @@ insta clone backend
 [v] include follow (See Profile)
 [v] See Followers (offset pagination)
 [v] See Following (cursor based pagination)
-
+[v] Computed Fields (User schema)
+[v] Search Users (offset pagination)
 
 
