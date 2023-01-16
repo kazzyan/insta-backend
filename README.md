@@ -11,6 +11,8 @@ insta clone backend
 [v] Follow User
 [v] Unfollow User
 [v] include follow (See Profile)
+[v] See Followers (offset pagination)
+[v] See Following (cursor based pagination)
 
 
 
