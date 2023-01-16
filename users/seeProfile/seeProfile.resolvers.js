@@ -5,6 +5,10 @@ export default {
         seeProfile: (_, { username }) => prisma.user.findUnique({
             where: {
                 username
+            },
+            include: {
+                followers: true,
+                following: true
             }
         })
     }

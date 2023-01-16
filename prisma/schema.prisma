@@ -11,15 +11,17 @@ datasource db {
 }
 
 model User {
-  id        Int      @default(autoincrement()) @id
-  username  String   @unique
-  email     String   @unique
+  id        Int       @default(autoincrement()) @id
+  username  String    @unique
+  email     String    @unique
   name      String?
   location  String?
   password  String
   bio       String?
   avatarURL String?
   githubUsername  String?
-  createAt  DateTime @default(now())
-  updateAt  DateTime @updatedAt
+  followers User[]    @relation("FollowRelation")
+  following User[]    @relation("FollowRelation")
+  createAt  DateTime  @default(now())
+  updateAt  DateTime  @updatedAt
 }
