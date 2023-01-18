@@ -46,6 +46,11 @@ export default {
 
             return id === thisUser.id;
         },
+        photos: ({ id }) => prisma.user.findUnique({
+            where: {
+                id
+            }
+        }).photos()
     }
 }
 

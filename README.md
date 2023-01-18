@@ -16,4 +16,12 @@ insta clone backend
 [v] Computed Fields (User schema)
 [v] Search Users (offset pagination)
 
+## photo
+[v] Upload Photo (Parse #)
+[v] See Photo
+[v] See Hashtag
+[v] Edit Photo
+[v] Search Photo
+[v] Like / Unlike Photo
+
 

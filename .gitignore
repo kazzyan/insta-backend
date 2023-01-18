@@ -1,7 +1,10 @@
-node_modules
+.vscode
 
-.env
+node_modules
 
 prisma/migrations
 
 uploads
+
+.env
+
